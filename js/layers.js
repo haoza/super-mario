@@ -19,8 +19,8 @@ export function createBackgroundLayer(backgrounds, sprites) {
     *  固定宽高
     * */
     const buffer = document.createElement('canvas');
-    buffer.width = 256;
-    buffer.height = 240;
+    buffer.width = 400;
+    buffer.height = 360;
 
     /*
     * 遍历背景图片数组，
@@ -31,5 +31,11 @@ export function createBackgroundLayer(backgrounds, sprites) {
 
     return function drawBackgroundLayer(context){
         context.drawImage(buffer,0 ,0)
+    }
+}
+
+export function createSpriteLayer(entity){
+    return function drawSpriteLayer(context){
+        entity.draw(context)
     }
 }

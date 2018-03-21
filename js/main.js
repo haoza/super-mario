@@ -1,40 +1,38 @@
-import Compositor from './Compositor'
+import Compositor from './Compositor';
+import Timer from './Timer';
 import {loadLevel} from './loaders';
-import {loadBackgroundSprite, loadMarioSprite} from "./sprites";
-import {createBackgroundLayer} from "./layers";
+import {loadBackgroundSprite} from "./sprites";
+import {createBackgroundLayer, createSpriteLayer} from "./layers";
+import {createMario} from "./entities";
 
-function createSpriteLayer(sprite, pos){
-    return function drawSpriteLayer(){
-        sprite.draw('idle', context, pos.x, pos.y)
-    }
-}
 const canvas = document.getElementById('screen');
 const context = canvas.getContext('2d');
 
+
 Promise.all([
-    loadMarioSprite(),
+    createMario(),
     loadBackgroundSprite(),
     loadLevel('1-1')
-]).then(([marioSprite, sprites, level])=>{
+]).then(([mario, sprites, level])=>{
     /*
     * sprites : 背景雪碧图SpriteSheet的实例
     * */
     const comp = new Compositor();
+    const timer = new Timer(1/60);
+    const gravity = 50;
+    const spriteLayer = createSpriteLayer(mario);
     const backgroundLayer = createBackgroundLayer(level.background, sprites);
     comp.layers.push(backgroundLayer);
+    comp.layers.push(spriteLayer);
 
-    let pos = {
-        x:64,
-        y:64
+    mario.pos.set(64, 240);
+    mario.vel.set(200, -600);
+
+    timer.update = function(deltaTime) {
+        comp.draw(context);
+        mario.update(deltaTime);
+        mario.vel.y += gravity;
     };
 
-    const spriteLayer = createSpriteLayer(marioSprite, pos);
-    comp.layers.push(spriteLayer);
-    function update(){
-        comp.draw(context);
-        pos.x += 2;
-        pos.y += 2;
-        requestAnimationFrame(update)
-    }
-    update()
+    timer.start()
 });
