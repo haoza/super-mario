@@ -1,19 +1,26 @@
 // 创建mario实例
-import Entity from "./Entity";
+import Entity  from "./Entity";
+import Jump from './traits/Jump'
+import Velocity from './traits/Velocity'
 import {loadMarioSprite} from "./sprites";
+
 
 export function createMario() {
     return loadMarioSprite().then(sprite => {
         const mario = new Entity();
+        // 添加行为
+        mario.addTrait(new Velocity());
+        mario.addTrait(new Jump());
 
         mario.draw = function drawMario(context) {
-            sprite.draw('idle', context, this.pos.x, this.pos.y);
+            // console.log('mario 绘制坐标 ： '+mario.pos.x, mario.pos.y);
+            sprite.draw('idle', context, mario.pos.x, mario.pos.y);
+            // var node = document.createElement("canvas");
+            // node.height = 20;
+            // node.width = 20;
+            // node.getContext('2d').drawImage(sprite.tiles.get('idle'),0,0);
+            // document.getElementById('dev').appendChild(node)
         };
-        mario.update = function updateMario(deltaTime) {
-            this.pos.x += this.vel.x * deltaTime;
-            this.pos.y += this.vel.y * deltaTime;
-        };
-
         return mario
     })
 }
