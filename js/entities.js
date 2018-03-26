@@ -4,6 +4,8 @@ import Jump from './traits/Jump'
 import Velocity from './traits/Velocity'
 import {loadMarioSprite} from "./sprites";
 
+// 创建mario
+
 
 export function createMario() {
     return loadMarioSprite().then(sprite => {
@@ -11,7 +13,7 @@ export function createMario() {
         // 添加行为
         mario.addTrait(new Velocity());
         mario.addTrait(new Jump());
-
+        // 定义draw方法  绘制一个mario
         mario.draw = function drawMario(context) {
             // console.log('mario 绘制坐标 ： '+mario.pos.x, mario.pos.y);
             sprite.draw('idle', context, mario.pos.x, mario.pos.y);

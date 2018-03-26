@@ -1,3 +1,8 @@
+/*
+* vector 向量
+*
+* */
+
 export class vec2 {
     constructor(x, y){
         this.set(x, y)

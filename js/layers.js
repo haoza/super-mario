@@ -12,7 +12,10 @@ function drawBackground(background, context, sprite){
         }
     })
 }
-
+/*
+* 创建一个背景buffer对象，给背景buffer 绘制 关卡瓦片
+* 返回一个函数 需要传入上下文 把背景buffer绘制到上下文中
+* */
 export function createBackgroundLayer(backgrounds, sprites) {
     /*
     *  创建 背景图片 buffer
@@ -33,7 +36,12 @@ export function createBackgroundLayer(backgrounds, sprites) {
         context.drawImage(buffer,0 ,0)
     }
 }
-
+/*
+* 传入实体
+* return 一个函数 传入上下文 buffer
+* 实体执行 draw 函数  就是mario精灵执行 draw函数 把mario 绘制到 上下文buffer上
+*
+* */
 export function createSpriteLayer(entity){
     return function drawSpriteLayer(context){
         entity.draw(context)

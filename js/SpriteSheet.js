@@ -13,7 +13,7 @@ export default class SpriteSheet {
     }
 
     /*
-     * @define 定义一个buffer（canvas对象），命令 @name 存放在tiles（瓦片）里面
+     * @define 定义一个buffer（canvas对象），命令 name 存放在tiles（瓦片）里面
      * buffer展示 裁剪 image 得到的图片，所以传入 坐标x,y 大小width height
      * 裁剪的大小 为传入的 高宽，buffer的大小也是传入的高宽
      * */
@@ -51,7 +51,7 @@ export default class SpriteSheet {
         const buffer = this.tiles.get(name);
         context.drawImage(buffer, x, y);
     }
-
+    // 按照瓦片的基准绘制
     drawTile(name, context, x, y) {
         this.draw(name, context, this.width * x, this.height * y)
     }
