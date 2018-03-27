@@ -18,7 +18,7 @@ export function createMario() {
         //mario.addTrait(new Velocity());
         // 定义draw方法  绘制一个mario
         mario.draw = function drawMario(context) {
-            sprite.draw('idle', context, mario.pos.x, mario.pos.y);
+            sprite.draw('idle', context, 0, 0);
         };
         return mario
     })
