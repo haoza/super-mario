@@ -2,11 +2,13 @@ import Timer from './Timer';
 import Keyboard from './KeyboardState'
 import {loadLevel} from './loaders';
 import {createMario} from "./entities";
+import {createCollisionLayer} from "./layers";
+
 const canvas = document.getElementById('screen');
 const context = canvas.getContext('2d');
-
 const input = new Keyboard();
 const SPACE = 32;
+
 
 Promise.all([
     createMario(),
@@ -18,9 +20,12 @@ Promise.all([
     const timer = new Timer(1/60);
     const gravity = 2000;
     level.entities.add(mario);
+    level.comp.layers.push(createCollisionLayer(level));
     // 设置位置和偏移量的初始值
     mario.pos.set(64, 64);
     // mario.vel.set(200, -600);
+
+    createCollisionLayer(level);
 
     // 每帧更新时候
     timer.update = function(deltaTime) {
@@ -42,6 +47,23 @@ Promise.all([
             mario.Jump.cancel();
         }
     });
+
+    input.addMapping(37, keyState => {
+        mario.Go.dir = -keyState;
+    });
+    input.addMapping(39, keyState => {
+        mario.Go.dir = keyState;
+    });
+
+    ['mousedown', 'mousemove'].forEach(eventName => {
+        canvas.addEventListener(eventName, event => {
+            if(event.buttons === 1) {
+                mario.vel.set(0, 0);
+                mario.pos.set(event.offsetX, event.offsetY);
+            }
+        })
+    });
+
     input.listenTo(window);
 
 });

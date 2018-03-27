@@ -16,7 +16,7 @@ export function loadBackgroundSprite(){
         // 实例化精灵对象
         const sprites = new SpriteSheet(image, 16, 16);
         // 定义天空和地面的瓦片
-        sprites.defineTile('group', 0, 0);
+        sprites.defineTile('ground', 0, 0);
         sprites.defineTile('sky', 3, 23);
         return sprites
     });

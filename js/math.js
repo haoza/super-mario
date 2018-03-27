@@ -1,10 +1,20 @@
-
 /*
 * 矩阵
 * */
 export class Matrix {
     constructor() {
         this.grid = [];
+    }
+
+    forEach(callback) {
+        /*
+         * 遍历背景图片数组，
+         * */
+        this.grid.forEach((column, x) => {
+            column.forEach((tile, y) => {
+                callback(tile, x, y)
+            })
+        });
     }
 
     set(x, y, value) {
