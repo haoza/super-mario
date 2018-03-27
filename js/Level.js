@@ -4,6 +4,8 @@ import TileCollider from "./TileCollider";
 
 export default class Level {
     constructor() {
+        this.gravity = 2000;
+
         this.comp = new Compositor();
         this.entities = new Set();
         this.tiles = new Matrix();
@@ -12,13 +14,16 @@ export default class Level {
     }
     update(deltaTime) {
         this.entities.forEach(entity => {
+
             entity.update(deltaTime);
 
             entity.pos.x += entity.vel.x * deltaTime;
 
             entity.pos.y += entity.vel.y * deltaTime;
-            this.tileCollider.checkY(entity)
+            this.tileCollider.checkY(entity);
 
+            // 改变vel的y坐标 为重力 * 帧数间隔时间
+            entity.vel.y += this.gravity * deltaTime;
         })
     }
 }
