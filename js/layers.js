@@ -7,6 +7,7 @@ export function createBackgroundLayer(level, sprites) {
     *  创建 背景图片 buffer
     *  固定宽高
     * */
+
     const buffer = document.createElement('canvas');
     buffer.width = 1400;
     buffer.height = 360;

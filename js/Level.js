@@ -18,7 +18,7 @@ export default class Level {
             entity.update(deltaTime);
 
             entity.pos.x += entity.vel.x * deltaTime;
-
+            // this.tileCollider.checkX(entity);
             entity.pos.y += entity.vel.y * deltaTime;
             this.tileCollider.checkY(entity);
 
