@@ -1,14 +1,20 @@
+/*
+* resolver : 解决 matrix : 矩阵
+*
+* */
+
 export default class TileResolver {
     constructor(matrix, tileSize = 16) {
         this.matrix = matrix;
         this.tileSize = tileSize;
     }
-
+    //得到这个点是在哪个矩阵块中
     toIndex(pos) {
         return Math.floor(pos / this.tileSize)
     }
 
     toIndexRange(pos1, pos2){
+        // pMax 占据格子的右边的 坐标
         const pMax = Math.ceil(pos2 / this.tileSize) * this.tileSize;
         const range = [];
         let pos = pos1;
@@ -42,7 +48,7 @@ export default class TileResolver {
             this.toIndex(posX),
             this.toIndex(posY));
     }
-
+    // x1 mario的x坐标 x2 mario右边的x坐标 y同理
     searchByRange(x1, x2, y1, y2) {
         const matches = [];
         this.toIndexRange(x1, x2).forEach(indexX => {
