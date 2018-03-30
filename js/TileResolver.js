@@ -8,7 +8,7 @@ export default class TileResolver {
         this.matrix = matrix;
         this.tileSize = tileSize;
     }
-    //得到这个点是在哪个矩阵块中
+    //得到这个点是在哪个矩阵块中 左边的点
     toIndex(pos) {
         return Math.floor(pos / this.tileSize)
     }
@@ -16,7 +16,7 @@ export default class TileResolver {
     toIndexRange(pos1, pos2){
         // pMax 占据格子的右边的 坐标
         const pMax = Math.ceil(pos2 / this.tileSize) * this.tileSize;
-        const range = [];
+        const range = [];  //范围
         let pos = pos1;
         do {
             range.push(this.toIndex(pos));
