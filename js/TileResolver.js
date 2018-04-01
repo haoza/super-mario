@@ -5,16 +5,17 @@
 
 export default class TileResolver {
     constructor(matrix, tileSize = 16) {
+        // Matrix 的实例
         this.matrix = matrix;
         this.tileSize = tileSize;
     }
-    //得到这个点是在哪个矩阵块中 左边的点
+    //得到这个点是在哪个矩阵块中 左边的点  起点
     toIndex(pos) {
         return Math.floor(pos / this.tileSize)
     }
-
+    // 第二个参数为格子终点的位置
     toIndexRange(pos1, pos2){
-        // pMax 占据格子的右边的 坐标
+        // pMax 占据格子的右边的 （终点）坐标
         const pMax = Math.ceil(pos2 / this.tileSize) * this.tileSize;
         const range = [];  //范围
         let pos = pos1;
