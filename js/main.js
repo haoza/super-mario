@@ -1,7 +1,7 @@
 import Timer from './Timer';
 import {loadLevel} from './loaders';
 import {createMario} from "./entities";
-import {createCollisionLayer} from "./layers";
+import {createCollisionLayer, createCameraLayer} from "./layers";
 import {setupKeyboard} from './input'
 import Camera from "./Camera";
 import {setupMouseControl} from "./debug";
@@ -21,7 +21,9 @@ Promise.all([
     const camera = new Camera();
 
     level.entities.add(mario);
-    level.comp.layers.push(createCollisionLayer(level));
+    level.comp.layers.push(
+        createCollisionLayer(level),
+        createCameraLayer(camera));
     // 设置位置和偏移量的初始值
     mario.pos.set(64, 64);
     // mario.vel.set(200, -600);

@@ -3,16 +3,40 @@
 * 返回一个函数 需要传入上下文 把背景buffer绘制到上下文中
 * */
 export function createBackgroundLayer(level, sprites) {
+    const tiles = level.tiles;
+    const resolver = level.tileCollider.tiles;
     /*
     *  创建 背景图片 buffer
     *  固定宽高
     * */
 
     const buffer = document.createElement('canvas');
-    buffer.width = 1400;
+    buffer.width = 256 + 16;
     buffer.height = 360;
 
     const context = buffer.getContext('2d');
+
+
+    let startIndex, endIndex;
+    function renderRaw(drawFrom, drawTo) {
+        if(drawFrom === startIndex && drawTo === endIndex){
+            return;
+        }
+
+        startIndex = drawFrom;
+        endIndex = drawTo;
+
+        for (let x = startIndex; x < endIndex; ++x){
+            const col = tiles.grid[x];
+            if(col){
+                col.forEach((tile, y) => {
+                    sprites.drawTile(tile.name, context, x - startIndex, y)
+                })
+            }
+        }
+    }
+    
+    
     /*
     * 遍历背景图片数组，
     * */
@@ -21,7 +45,14 @@ export function createBackgroundLayer(level, sprites) {
 
     });
     return function drawBackgroundLayer(context, camera) {
-        context.drawImage(buffer, -camera.pos.x, -camera.pos.y)
+        const drawWidth = resolver.toIndex(camera.size.x);
+        const drawFrom = resolver.toIndex(camera.pos.x);
+        const drawTo = drawFrom + drawWidth;
+        renderRaw(drawFrom, drawTo);
+
+        context.drawImage(buffer,
+            -camera.pos.x % 16,
+            -camera.pos.y)
     }
 }
 
@@ -86,5 +117,19 @@ export function createCollisionLayer(level) {
             context.stroke()
         });
         resolvedTiles.length = 0;
+    }
+}
+
+export function createCameraLayer(cameraToDarw) {
+    return function drawCameraRect(context, formCamera) {
+        context.strokeStyle = 'purple';
+        context.beginPath();
+        context.rect(
+            cameraToDarw.pos.x - formCamera.pos.x,
+            cameraToDarw.pos.y - formCamera.pos.y,
+            cameraToDarw.size.x,
+            cameraToDarw.size.y);
+        context.stroke()
+
     }
 }
