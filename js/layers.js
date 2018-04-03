@@ -18,6 +18,8 @@ export function createBackgroundLayer(level, sprites) {
 
 
     let startIndex, endIndex;
+
+
     function renderRaw(drawFrom, drawTo) {
         if(drawFrom === startIndex && drawTo === endIndex){
             return;
@@ -38,7 +40,7 @@ export function createBackgroundLayer(level, sprites) {
     
     
     /*
-    * 遍历背景图片数组，
+    * 遍历背景图片数组，绘制在buffer上
     * */
     level.tiles.forEach((tile, x, y) => {
         sprites.drawTile(tile.name, context, x, y);
@@ -130,6 +132,5 @@ export function createCameraLayer(cameraToDarw) {
             cameraToDarw.size.x,
             cameraToDarw.size.y);
         context.stroke()
-
     }
 }

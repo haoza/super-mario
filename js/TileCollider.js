@@ -33,12 +33,12 @@ export default class TileCollider {
         const matches = this.tiles.searchByRange(
             entity.pos.x, entity.pos.x + entity.size.x,
             entity.pos.y, entity.pos.y + entity.size.y);
-
+        // 判断如果是地面就结束
         matches.forEach(match => {
             if (match.tile.type !== 'ground') {
                 return;
             }
-
+            // 向量大于0
             if (entity.vel.y > 0) {
                 if (entity.pos.y + entity.size.y > match.y1) {
                     entity.pos.y = match.y1 - entity.size.y;

@@ -1,6 +1,10 @@
-/*
-* 矩阵
-* */
+
+/**
+ *  @constructor
+ *  @grid {number} 格子集合
+ *
+ *
+ */
 export class Matrix {
     constructor() {
         this.grid = [];

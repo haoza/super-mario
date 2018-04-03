@@ -1,13 +1,16 @@
-// 层级合成
-/*
- * 构造一个数组
- * draw : 遍历执行layers中的每个元素 需要传入 context
- *
- * */
+
+/**
+ * 合成器
+ * @constructor
+ * @layers {Array} 层的集合
+ **/
 export default class Compositor{
     constructor(){
         this.layers = [];
     }
+    /*
+    * 遍历layers每个元素 执行元素
+    * */
     draw(context, camera){
         this.layers.forEach((layer)=>{
             layer(context, camera)

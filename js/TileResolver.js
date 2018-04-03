@@ -14,19 +14,27 @@ export default class TileResolver {
         return Math.floor(pos / this.tileSize)
     }
     // 第二个参数为格子终点的位置
+    /**
+    * @param pos1 x左边坐标 (x1)
+    * @param pos2 x右边坐标 (x2)
+    * */
     toIndexRange(pos1, pos2){
-        // pMax 占据格子的右边的 （终点）坐标
+        // pMax x2的占据的格子的右边的坐标
         const pMax = Math.ceil(pos2 / this.tileSize) * this.tileSize;
         const range = [];  //范围
         let pos = pos1;
+
+        // 把x1到x2之间的格子坐标全部记录下来
         do {
             range.push(this.toIndex(pos));
             pos += this.tileSize;
         }
         while (pos < pMax);
+
+        // 返回所有的坐标
         return range;
     }
-
+    // 返回矩阵中某个格子他的tile和坐标
     getByIndex(indexX, indexY) {
         const tile = this.matrix.get(indexX, indexY);
         const x1 = indexX * this.tileSize;
@@ -60,7 +68,7 @@ export default class TileResolver {
                 }
             })
         });
-
+        // 返回某个返回内所有的tile集合
         return matches
     }
 }

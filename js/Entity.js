@@ -13,7 +13,8 @@ export class Trait {
 * 实体类
 * 实例化三个属性
 * pos vec2实例 当前位置
-* vel  vec2实例 偏移位置
+* vel（vector）  vec2实例 偏移位置
+* size  vec2实例 实例的大小 高宽
 * traits 特征 array
 * */
 export default class Entity {

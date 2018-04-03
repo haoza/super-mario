@@ -3,6 +3,8 @@ import {createBackgroundLayer, createSpriteLayer} from "./layers";
 import Level from "./Level";
 import SpriteSheet from './SpriteSheet'
 
+
+// 得到图片HTMLObject
 export function loadImage(url) {
     return new Promise((resolve, reject) => {
         const img = new Image();
@@ -50,7 +52,9 @@ function createTiles(level, backgrounds) {
     })
 }
 
-
+// 加载精灵对应的皮肤位置 比如 sky 在雪碧图上的位置
+// sheetSpec.imageURL 对应皮肤的图片位置
+// sheetSpec 定义了各种tile，比如地面的，天空 他们在图片上位置
 function loadSpriteSheet(name) {
     return loadJSON(`/assets/sprites/${name}.json`)
         .then(sheetSpec => Promise.all([
@@ -62,7 +66,7 @@ function loadSpriteSheet(name) {
                 image,
                 sheetSpec.tileW,
                 sheetSpec.tileH);
-
+            // 定义所有tile
             sheetSpec.tiles.forEach(tileSpec => {
                 sprites.defineTile(
                     tileSpec.name,
@@ -77,15 +81,16 @@ function loadSpriteSheet(name) {
 * 请求本地关卡资源
 * */
 export function loadLevel(name) {
+    // levelSpec 就是 一个 json对象
+    // levelSpec.spriteSheet 名称
     return loadJSON(`/assets/levels/${name}.json`).then(levelSpec =>
-        Promise.all([
-            levelSpec,
-            loadSpriteSheet(levelSpec.spriteSheet)
-        ])
+             Promise.all([
+                levelSpec,
+                loadSpriteSheet(levelSpec.spriteSheet)
+            ])
     ).then(([levelsSpec, backgroundSprites]) => {
         let level = new Level();
         createTiles(level, levelsSpec.background);
-
         const backgroundLayer = createBackgroundLayer(level, backgroundSprites);
         level.comp.layers.push(backgroundLayer);
 

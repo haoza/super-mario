@@ -1,7 +1,6 @@
 /**
  * @constructor @image @width @height => 赋值给this  其中的 @width 和 @height 是瓦片的基准大小
-
- *
+ *  image HTMLImageElement，HTMLVideoElement，或者 HTMLCanvasElement。
  */
 
 export default class SpriteSheet {
