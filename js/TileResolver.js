@@ -15,8 +15,9 @@ export default class TileResolver {
     }
     // 第二个参数为格子终点的位置
     /**
-    * @param pos1 x左边坐标 (x1)
-    * @param pos2 x右边坐标 (x2)
+     * @param pos1 x左边坐标 (x1)
+     * @param pos2 x右边坐标 (x2)
+     * @returns pos1 到 pos2 经过的所有格子的坐标点
     * */
     toIndexRange(pos1, pos2){
         // pMax x2的占据的格子的右边的坐标
@@ -58,6 +59,7 @@ export default class TileResolver {
             this.toIndex(posY));
     }
     // x1 mario的x坐标 x2 mario右边的x坐标 y同理
+    // return 这个范围里面所有的tile
     searchByRange(x1, x2, y1, y2) {
         const matches = [];
         this.toIndexRange(x1, x2).forEach(indexX => {

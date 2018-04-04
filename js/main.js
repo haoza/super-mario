@@ -29,7 +29,7 @@ Promise.all([
     timer.update = function (deltaTime) {
         // 先更新合成器里面的
         level.comp.draw(context, camera);
-
+        // 更新关卡
         level.update(deltaTime);
     };
 

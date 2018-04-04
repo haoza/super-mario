@@ -65,16 +65,18 @@ export function createBackgroundLayer(level, sprites) {
 *
 * */
 export function createSpriteLayer(entities, width = 64, height = 64) {
+    // spriteBuffer默认占位4个格子
     const spriteBuffer = document.createElement('canvas');
     spriteBuffer.width = width;
     spriteBuffer.height = height;
     const spriteBufferContext = spriteBuffer.getContext('2d');
     return function drawSpriteLayer(context, camera) {
         entities.forEach(entity => {
+            // 在给定矩形内清空一个矩形：
             spriteBufferContext.clearRect(0, 0, width, height);
-
+            // 把mario绘制到当前buffer
             entity.draw(spriteBufferContext);
-
+            // 把当前buffer绘制到 context上
             context.drawImage(
                 spriteBuffer,
                 entity.pos.x - camera.pos.x,
@@ -83,10 +85,12 @@ export function createSpriteLayer(entities, width = 64, height = 64) {
     }
 }
 
-
+// 创建碰撞层
 export function createCollisionLayer(level) {
 
+
     const resolvedTiles = [];
+
 
     const tileResolver = level.tileCollider.tiles;
     const tileSize = tileResolver.tileSize;
@@ -122,15 +126,15 @@ export function createCollisionLayer(level) {
     }
 }
 
-export function createCameraLayer(cameraToDarw) {
+export function createCameraLayer(cameraToDraw) {
     return function drawCameraRect(context, formCamera) {
         context.strokeStyle = 'purple';
         context.beginPath();
         context.rect(
-            cameraToDarw.pos.x - formCamera.pos.x,
-            cameraToDarw.pos.y - formCamera.pos.y,
-            cameraToDarw.size.x,
-            cameraToDarw.size.y);
+            cameraToDraw.pos.x - formCamera.pos.x,
+            cameraToDraw.pos.y - formCamera.pos.y,
+            cameraToDraw.size.x,
+            cameraToDraw.size.y);
         context.stroke()
     }
 }

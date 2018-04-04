@@ -26,13 +26,14 @@ export default class Level {
     * */
     update(deltaTime) {
         this.entities.forEach(entity => {
+            // 先执行mario的update方法，update会执行mario的特征库里面元素的update方法
             entity.update(deltaTime);
-
+            // 改变mario的坐标
             entity.pos.x += entity.vel.x * deltaTime;
             // this.tileCollider.checkX(entity);
             entity.pos.y += entity.vel.y * deltaTime;
+            // 改变mario的坐标后检查mario的状态
             this.tileCollider.checkY(entity);
-
             // 改变vel的y坐标 为重力 * 帧数间隔时间
             entity.vel.y += this.gravity * deltaTime;
         })

@@ -1,6 +1,6 @@
 import {vec2} from './math'
 
-/*
+/**
  * 相机
  * @param
  * @constructor
