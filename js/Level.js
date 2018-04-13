@@ -15,7 +15,10 @@ export default class Level {
         this.gravity = 2000;
         this.comp = new Compositor();
         this.entities = new Set();
+        //此处代表的是 矩阵类
         this.tiles = new Matrix();
+
+
         this.tileCollider = new TileCollider(this.tiles);
     }
     /*

@@ -1,6 +1,7 @@
 /*
 * resolver : 解决 matrix : 矩阵
-*
+* 检查点的矩阵坐标
+* 返回范围的里面的tile
 * */
 
 export default class TileResolver {

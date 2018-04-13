@@ -3,6 +3,7 @@
 * 返回一个函数 需要传入上下文 把背景buffer绘制到上下文中
 * */
 export function createBackgroundLayer(level, sprites) {
+    // tiles 是矩阵类
     const tiles = level.tiles;
     const resolver = level.tileCollider.tiles;
     /*
@@ -44,8 +45,9 @@ export function createBackgroundLayer(level, sprites) {
     * */
     level.tiles.forEach((tile, x, y) => {
         sprites.drawTile(tile.name, context, x, y);
-
     });
+
+
     return function drawBackgroundLayer(context, camera) {
         const drawWidth = resolver.toIndex(camera.size.x);
         const drawFrom = resolver.toIndex(camera.pos.x);
@@ -125,9 +127,11 @@ export function createCollisionLayer(level) {
         resolvedTiles.length = 0;
     }
 }
-
+// 创建可视Camera边框
 export function createCameraLayer(cameraToDraw) {
+
     return function drawCameraRect(context, formCamera) {
+
         context.strokeStyle = 'purple';
         context.beginPath();
         context.rect(

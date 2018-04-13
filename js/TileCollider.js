@@ -3,6 +3,7 @@ import TileResolver from './TileResolver'
 export default class TileCollider {
 
     constructor(tileMatrix) {
+        // 处理一个矩阵的返回类
         this.tiles = new TileResolver(tileMatrix);
     }
 
