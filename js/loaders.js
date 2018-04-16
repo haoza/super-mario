@@ -21,7 +21,8 @@ function loadJSON(url) {
 }
 
 function createTiles(level, backgrounds) {
-
+    console.table(backgrounds)
+    console.table(level)
     function applyRange(background, xStart, xLen, yStart, yLen) {
         const xEnd = xStart + xLen;
         const yEnd = yStart + yLen;
@@ -34,7 +35,6 @@ function createTiles(level, backgrounds) {
             }
         }
     }
-
 
     backgrounds.forEach(background => {
         background.ranges.forEach(range => {
@@ -90,6 +90,7 @@ export function loadLevel(name) {
             ])
     ).then(([levelsSpec, backgroundSprites]) => {
         let level = new Level();
+        // 创建整个背景图
         createTiles(level, levelsSpec.background);
         const backgroundLayer = createBackgroundLayer(level, backgroundSprites);
         level.comp.layers.push(backgroundLayer);

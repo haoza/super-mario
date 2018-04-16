@@ -18,7 +18,6 @@ export default class Level {
         //此处代表的是 矩阵类
         this.tiles = new Matrix();
 
-
         this.tileCollider = new TileCollider(this.tiles);
     }
     /*
