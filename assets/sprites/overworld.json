@@ -10,6 +10,44 @@
     {
       "name":"sky",
       "index":[3, 23]
+    },
+
+    {
+      "name": "chocolate",
+      "index": [0, 1]
+    },
+    {
+      "name": "bricks",
+      "index": [1, 0]
+    },
+    {
+      "name": "chance",
+      "index": [24, 0]
+    },
+
+    {
+      "name": "chance-1",
+      "index": [24, 0]
+    },
+    {
+      "name": "chance-2",
+      "index": [25, 0]
+    },
+    {
+      "name": "chance-3",
+      "index": [26, 0]
+    }
+  ],
+
+  "animations":[
+    {
+      "name":"chance",
+      "frameLen":1,
+      "frames":[
+        "chance-1",
+        "chance-2",
+        "chance-3"
+      ]
     }
   ]
 }

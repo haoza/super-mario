@@ -7,8 +7,14 @@ export default class Timer{
         let lastTime = 0;
         // 当前累积时间 只要超过规定每帧消耗的时间 就会进入循环，执行 update 函数
         let accumulatedTime = 0;
+
         this.updateProxy = (time) =>{
             accumulatedTime += (time - lastTime) / 1000;
+
+            if(accumulatedTime > 1){
+                accumulatedTime = 1;
+            }
+
             //当实际帧数消耗累积的时间 超过1/60的时候，进入 while
             while (accumulatedTime > deltaTime){
                 // update在实例化过后添加

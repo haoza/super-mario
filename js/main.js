@@ -18,13 +18,13 @@ Promise.all([
     const timer = new Timer(1 / 60);
     const camera = new Camera();
     level.entities.add(mario);
+
     level.comp.layers.push(
         createCollisionLayer(level),
         createCameraLayer(camera));
     // 设置位置和偏移量的初始值
     mario.pos.set(64, 64);
     // mario.vel.set(200, -600);
-
     // 每帧更新时候
     timer.update = function (deltaTime) {
         // 先更新合成器里面的

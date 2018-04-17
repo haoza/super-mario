@@ -16,13 +16,15 @@ export default class TileCollider {
             if (match.tile.type !== 'ground') {
                 return;
             }
-
+            // x>0 表示往右走
             if (entity.vel.x > 0) {
                 if (entity.pos.x + entity.size.x > match.x1) {
                     entity.pos.x = match.x1 - entity.size.x;
                     entity.vel.x = 0;
                 }
-            } else if (entity.vel.x < 0) {
+            }
+            // 往左走
+            else if (entity.vel.x < 0) {
                 if (entity.pos.x < match.x2) {
                     entity.pos.x = match.x2;
                     entity.vel.x = 0;

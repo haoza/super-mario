@@ -50,6 +50,13 @@
       ]
     },
     {
+      "tile": "chance",
+      "type": "ground",
+      "ranges": [
+        [2,2]
+      ]
+    },
+    {
       "tile": "sky",
       "ranges": [
         [
