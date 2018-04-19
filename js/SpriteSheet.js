@@ -64,15 +64,12 @@ export default class SpriteSheet {
     * @x，y  坐标
     * */
     draw(name, context, x, y, flip = false) {
-        console.log(name)
         const buffer = this.tiles.get(name)[flip ? 1 : 0];
         context.drawImage(buffer, x, y);
     }
 
     drawAnim(name, context, x, y, distance) {
         const animation = this.animations.get(name);
-        console.log((distance))
-        console.log(animation(distance))
         this.drawTile(animation(distance), context, x, y);
     }
     // 按照瓦片的基准绘制

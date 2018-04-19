@@ -21,6 +21,7 @@ export function createMario() {
             mario.addTrait(new Go());
 
             const runAnim = createAnim(['run-1', 'run-2', 'run-3'], 10);
+
             function routeAnim(mario) {
                 if(mario.Go.dir !== 0){
                     return runAnim(mario.Go.distance)

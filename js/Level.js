@@ -13,6 +13,10 @@ import TileCollider from "./TileCollider";
 export default class Level {
     constructor() {
         this.gravity = 2000;
+
+        this.totalTime = 0;
+
+
         this.comp = new Compositor();
         this.entities = new Set();
         //此处代表的是 矩阵类
@@ -42,5 +46,7 @@ export default class Level {
             // 改变vel的y坐标 为重力 * 帧数间隔时间
             entity.vel.y += this.gravity * deltaTime;
         })
+
+        this.totalTime += deltaTime;
     }
 }
