@@ -103,10 +103,11 @@ export function loadLevel(name) {
         ])
     ).then(([levelsSpec, backgroundSprites]) => {
         let level = new Level();
-        // 创建整个背景图
-        createTiles(level, levelsSpec.background);
-        const backgroundLayer = createBackgroundLayer(level, backgroundSprites);
 
+        // 创建整个背景图需要tile对象 存放到 matrix的grid中
+        createTiles(level, levelsSpec.background);
+
+        const backgroundLayer = createBackgroundLayer(level, backgroundSprites);
         level.comp.layers.push(backgroundLayer);
 
         const spriteLayer = createSpriteLayer(level.entities);

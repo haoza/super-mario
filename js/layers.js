@@ -44,7 +44,8 @@ export function createBackgroundLayer(level, sprites) {
         }
     }
     
-    
+
+
     /*
     * 遍历背景图片数组，绘制在buffer上
     * */
@@ -57,6 +58,7 @@ export function createBackgroundLayer(level, sprites) {
         const drawWidth = resolver.toIndex(camera.size.x);
         const drawFrom = resolver.toIndex(camera.pos.x);
         const drawTo = drawFrom + drawWidth;
+
         renderRaw(drawFrom, drawTo);
 
         context.drawImage(buffer,
