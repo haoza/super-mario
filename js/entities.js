@@ -4,7 +4,6 @@ import Jump from './traits/Jump'
 import Go from './traits/Go'
 import {loadSpriteSheet} from "./loaders";
 import {createAnim} from "./anim";
-
 // 实例化 Entity 类
 export function createMario() {
     // 返回加载mariro的后的 srpite 实例
@@ -22,16 +21,23 @@ export function createMario() {
 
             const runAnim = createAnim(['run-1', 'run-2', 'run-3'], 10);
 
-            function routeAnim(mario) {
-                if(mario.Go.dir !== 0){
-                    return runAnim(mario.Go.distance)
+            function routeFrame(mario) {
+                if(!mario.jump.falling){
+                    return "jump"
+                }
+                if(mario.go.distance > 0){
+                    // 按键方向和向量的增量方向相反 则break
+                    if((mario.vel.x > 0 && mario.go.dir < 0) || (mario.vel.x < 0 && mario.go.dir > 0)){
+                        return "break"
+                    }
+                    return runAnim(mario.go.distance)
                 }
 
                 return 'idle'
             }
             // 定义draw方法  绘制一个mario 坐标都是0,0 绘制到context上
             mario.draw = function drawMario(context) {
-                sprite.draw(routeAnim(this), context, 0, 0, this.Go.heading < 0);
+                sprite.draw(routeFrame(this), context, 0, 0, this.go.heading < 0);
             };
             // 返回mario实例
             return mario

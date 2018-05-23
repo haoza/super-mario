@@ -1,5 +1,5 @@
 import TileResolver from './TileResolver'
-
+import {Sides} from  './Entity'
 export default class TileCollider {
 
     constructor(tileMatrix) {
@@ -21,6 +21,7 @@ export default class TileCollider {
                 if (entity.pos.x + entity.size.x > match.x1) {
                     entity.pos.x = match.x1 - entity.size.x;
                     entity.vel.x = 0;
+
                 }
             }
             // 往左走
@@ -52,6 +53,8 @@ export default class TileCollider {
                     // mario的y坐标 等于 格子上面的y坐标 - mario的高度
                     entity.pos.y = match.y1 - entity.size.y;
                     entity.vel.y = 0;
+
+                    entity.obstruct(Sides.BOTTOM);
                 }
             }
             // 往上跳
@@ -62,6 +65,8 @@ export default class TileCollider {
                 if (entity.pos.y < match.y2) {
                     entity.pos.y = match.y2;
                     entity.vel.y = 0;
+
+                    entity.obstruct(Sides.TOP);
                 }
             }
         })

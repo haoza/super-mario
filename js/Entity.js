@@ -1,10 +1,18 @@
 import {vec2} from './math'
-
+export const Sides = {
+    TOP:Symbol("top"),
+    BOTTOM:Symbol("bottom"),
+};
 // 特征基类 实例化的时候传入name 键名NAME
 export class Trait {
     constructor(name) {
         this.NAME = name;
     }
+    //子类可以实现该方法
+    obstruct(entity, side){
+
+    }
+
     update() {
         console.log('Trait is Update')
     }
@@ -30,6 +38,13 @@ export default class Entity {
         this.traits.push(trait);
         this[trait.NAME] = trait;
     }
+    // 阻碍
+    obstruct(side){
+        this.traits.forEach(trait => {
+            trait.obstruct(this, side)
+        })
+    }
+
     // 遍历特征数组，执行元素的update方法
     update(deltaTime) {
         // Entity update方法每次都去 遍历 traits ， 并且执行他的update方法
