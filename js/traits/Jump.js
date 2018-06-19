@@ -6,7 +6,7 @@ export default class Jump extends Trait {
 
         this.ready = 0;
         // 持续时间 速度 参与时间
-        this.duration = 0.5;
+        this.duration = 0.3;
         //速度
         this.velocity = 200;
         // 参与时间
@@ -14,7 +14,7 @@ export default class Jump extends Trait {
         //
         this.requestTime = 0;
         // 宽限期
-        this.gracePeriod = 0.5;
+        this.gracePeriod = 0.1;
     }
 
     get falling() {

@@ -12,7 +12,7 @@ export class Trait {
     obstruct(entity, side){
 
     }
-
+    // 子类自己实现该方法
     update() {
         console.log('Trait is Update')
     }

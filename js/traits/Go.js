@@ -11,7 +11,6 @@ export default class Go extends Trait{
         this.deceleration = 300;
         // 拖动因子
         this.dragFactor = 1/5000;
-
         // distance 距离
         this.distance = 0;
         // 头部方向 1右边 -1左边
@@ -32,6 +31,7 @@ export default class Go extends Trait{
         else {
             this.distance = 0;
         }
+
         const drag = this.dragFactor * entity.vel.x * absX;
         entity.vel.x -= drag;
 
