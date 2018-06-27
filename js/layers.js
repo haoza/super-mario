@@ -67,11 +67,11 @@ export function createBackgroundLayer(level, sprites) {
     }
 }
 
-/*
+/**
 * 传入实体
 * return 一个函数 传入上下文 buffer
 * 实体执行 draw 函数  就是mario精灵执行 draw函数 把mario 绘制到 上下文buffer上
-*
+* @param entities {Set}
 * */
 export function createSpriteLayer(entities, width = 64, height = 64) {
     // spriteBuffer默认占位4个格子

@@ -90,8 +90,9 @@ export function loadSpriteSheet(name) {
         })
 }
 
-/*
+/**
 * 请求本地关卡资源
+* 添加backgroundLayer,
 * */
 export function loadLevel(name) {
     // levelSpec 就是 一个 json对象

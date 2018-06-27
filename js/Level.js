@@ -2,7 +2,7 @@ import Compositor from "./Compositor";
 import {Matrix} from "./math";
 import TileCollider from "./TileCollider";
 
-/*
+/**
  * 关卡类
  * @constructor
  * @gravity {number} 重力
@@ -18,6 +18,7 @@ export default class Level {
 
 
         this.comp = new Compositor();
+
         this.entities = new Set();
         //此处代表的是 矩阵类
         this.tiles = new Matrix();
@@ -26,7 +27,7 @@ export default class Level {
         // 检查mario 在 X轴和Y轴 是否运动
         this.tileCollider = new TileCollider(this.tiles);
     }
-    /*
+    /**
     *  deltaTime 增量时间（每一帧消耗的时间）
     *  遍历entities 执行每个元素的update方法
     *  每个元素的pos x，y 都加上vel * deltaTime

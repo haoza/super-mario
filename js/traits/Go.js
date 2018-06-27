@@ -20,7 +20,11 @@ export default class Go extends Trait{
         const absX = Math.abs(entity.vel.x);
         if(this.dir !== 0){
             entity.vel.x += this.acceleration * deltaTime * this.dir;
-            this.heading = this.dir;
+            if(entity.jump) {
+               if(entity.jump.falling === false){
+                   this.heading = this.dir;
+               }
+            }
         }
         // 不控制mario的时候
         else if(entity.vel.x !== 0){
