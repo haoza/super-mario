@@ -111,8 +111,9 @@ export function loadLevel(name) {
         const backgroundLayer = createBackgroundLayer(level, backgroundSprites);
         level.comp.layers.push(backgroundLayer);
 
-        const spriteLayer = createSpriteLayer(level.entities);
+        const spriteLayer = createSpriteLayer(level.entities);  // 绘制entities的函数，传入上下文和camera
         level.comp.layers.push(spriteLayer);
+
         return level
     })
 }
