@@ -48,10 +48,11 @@ export default class TileCollider {
             // 向量大于0 mario往下掉
             if (entity.vel.y > 0) {
                 // mario最下面的y的坐标  和 当前格子的上面的y坐标比较
-                // 意味着 mario掉进地面里面了 则让他的位置出现在地面上  同事不再往下掉 vel = 0
+                // 意味着 mario掉进地面里面了 则让他的位置出现在地面上  同时不再往下掉 vel = 0
                 if (entity.pos.y + entity.size.y > match.y1) {
                     // mario的y坐标 等于 格子上面的y坐标 - mario的高度
                     entity.pos.y = match.y1 - entity.size.y;
+                    /* 在判断碰撞里面给向量赋值为0 */
                     entity.vel.y = 0;
 
                     entity.obstruct(Sides.BOTTOM);

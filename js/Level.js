@@ -16,11 +16,12 @@ export default class Level {
 
         this.totalTime = 0;
 
-
+        // 合成类，draw方法会遍历 layers里面的每个方法，执行
+        // layers的函数在实力和level添加
         this.comp = new Compositor();
-
+        // 实体类
         this.entities = new Set();
-        //此处代表的是 矩阵类
+        // 此处代表的是 矩阵类
         this.tiles = new Matrix();
 
 
@@ -39,6 +40,7 @@ export default class Level {
             entity.update(deltaTime);
 
             // 改变mario X 的坐标，立刻检查X
+            // 在检查的函数中，如果mario已经碰到，则给向量vel的y赋值为0 ！！！藏在这儿的
             entity.pos.x += entity.vel.x * deltaTime;
             this.tileCollider.checkX(entity);
 

@@ -42,7 +42,7 @@ Promise.all([
             camera.pos.x = mario.pos.x - 100;
         }
 
-        // 先更新合成器里面的
+        // 更新合成器里面的
         level.comp.draw(context, camera);
     };
 

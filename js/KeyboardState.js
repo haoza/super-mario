@@ -11,7 +11,7 @@ export default class KeyboardState {
         this.keyMap = new Map();
     }
     // 添加Map对象属性
-    addMapping(code, callback) {
+     addMapping(code, callback) {
         this.keyMap.set(code, callback)
     }
     // 触发事件

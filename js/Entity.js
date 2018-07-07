@@ -38,7 +38,7 @@ export default class Entity {
         this.traits.push(trait);
         this[trait.NAME] = trait;
     }
-    // 阻碍
+    // 遇到阻碍了
     obstruct(side){
         this.traits.forEach(trait => {
             trait.obstruct(this, side)
