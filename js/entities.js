@@ -4,6 +4,10 @@ import Jump from './traits/Jump'
 import Go from './traits/Go'
 import {loadSpriteSheet} from "./loaders";
 import {createAnim} from "./anim";
+
+const SLOW_DARG = 1/1000;
+const FAST_DARG = 1/5000;
+
 // 实例化 Entity 类
 export function createMario() {
     // 返回加载mariro的后的 srpite 实例
@@ -18,8 +22,12 @@ export function createMario() {
             // 添加行为  traits 是 Array
             mario.addTrait(new Jump());
             mario.addTrait(new Go());
+            // 速度切换 涡轮增压
+            mario.turbo = function setTurboState(turboOn) {
+                mario.go.dragFactor = turboOn ? FAST_DARG : SLOW_DARG;
+            }
 
-            const runAnim = createAnim(['run-1', 'run-2', 'run-3'], 10);
+            const runAnim = createAnim(['run-1', 'run-2', 'run-3'], 6);
 
             function routeFrame(mario) {
                 if(!mario.jump.falling){

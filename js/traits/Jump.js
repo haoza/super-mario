@@ -15,6 +15,8 @@ export default class Jump extends Trait {
         this.requestTime = 0;
         // 宽限期
         this.gracePeriod = 0.1;
+        // 速度提升
+        this.speedBoost = 200;
     }
 
     get falling() {
@@ -38,7 +40,7 @@ export default class Jump extends Trait {
         }
         // mario在空中的持续时间
         if (this.engageTime > 0) {
-            entity.vel.y = -this.velocity;
+            entity.vel.y = -(this.velocity = Math.abs(entity.val.x) * this.speedBoost);
             this.engageTime -= deltaTime;
         }
         this.ready = 0;
