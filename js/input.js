@@ -1,8 +1,8 @@
 import Keyboard from "./KeyboardState";
 
 export function setupKeyboard(mario) {
-
     const input = new Keyboard();
+
     input.addMapping('Space', keyState => {
         if(keyState){
             mario.jump.start();

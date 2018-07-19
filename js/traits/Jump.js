@@ -16,34 +16,11 @@ export default class Jump extends Trait {
         // 宽限期
         this.gracePeriod = 0.1;
         // 速度提升
-        this.speedBoost = 200;
+        this.speedBoost = 0.3;
     }
 
     get falling() {
         return this.ready < 0
-    }
-    /**
-    *  每次更新都重置ready为0
-     * 在地面上的时候ready为-1
-    * */
-    update(entity, deltaTime) {
-
-        // 大于0，需要判断mario是否需要运动
-        if (this.requestTime > 0) {
-            //mario在地面上站着
-            if(this.ready < 0) {
-                this.engageTime = this.duration;
-                this.requestTime = 0;
-            }
-
-            this.requestTime -= deltaTime;
-        }
-        // mario在空中的持续时间
-        if (this.engageTime > 0) {
-            entity.vel.y = -(this.velocity = Math.abs(entity.val.x) * this.speedBoost);
-            this.engageTime -= deltaTime;
-        }
-        this.ready = 0;
     }
 
     start() {
@@ -52,7 +29,7 @@ export default class Jump extends Trait {
     // 遇到阻碍
     obstruct(entity, side) {
         if (side === Sides.BOTTOM) {
-            this.ready--;
+            this.ready = 1;
         }
         else if (side === Sides.TOP) {
             this.cancel();
@@ -62,5 +39,29 @@ export default class Jump extends Trait {
     cancel() {
         this.engageTime = 0;
         this.requestTime = 0;
+    }
+
+    /**
+     *  每次更新都减小ready
+     * 在地面上的时候ready为 1
+     * */
+    update(entity, deltaTime) {
+
+        // 大于0，需要判断mario是否需要运动
+        if (this.requestTime > 0) {
+            //mario在地面上站着
+            if(this.ready > 0) {
+                this.engageTime = this.duration;
+                this.requestTime = 0;
+            }
+            this.requestTime -= deltaTime;
+        }
+        // mario在空中的持续时间
+        if (this.engageTime > 0) {
+            entity.vel.y = -(this.velocity + Math.abs(entity.vel.x) * this.speedBoost);
+            console.log(entity.vel.y)
+            this.engageTime -= deltaTime;
+        }
+        this.ready--;
     }
 }

@@ -14,9 +14,11 @@ export class Trait {
     }
     // 子类自己实现该方法
     update() {
-        console.log('Trait is Update')
+        console.warn('Unhandled update call in Trait');
     }
 }
+
+
 /*
 * 实体类
 * 实例化三个属性
