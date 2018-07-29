@@ -1,6 +1,3 @@
-// 加载图片
-import {createBackgroundLayer, createSpriteLayer} from "./layers";
-import Level from "./Level";
 import SpriteSheet from './SpriteSheet'
 import {createAnim} from "./anim";
 
@@ -16,39 +13,9 @@ export function loadImage(url) {
     })
 }
 
-function loadJSON(url) {
+export function loadJSON(url) {
     return fetch(url)
         .then(r => r.json())
-}
-
-function createTiles(level, backgrounds) {
-    function applyRange(background, xStart, xLen, yStart, yLen) {
-        const xEnd = xStart + xLen;
-        const yEnd = yStart + yLen;
-        for (let x = xStart; x < xEnd; x++) {
-            for (let y = yStart; y < yEnd; y++) {
-                level.tiles.set(x, y, {
-                    name: background.tile,
-                    type: background.type,
-                })
-            }
-        }
-    }
-
-    backgrounds.forEach(background => {
-        background.ranges.forEach(range => {
-            if (range.length === 4) {
-                const [xStart, xLen, yStart, yLen] = range;
-                applyRange(background, xStart, xLen, yStart, yLen)
-            } else if (range.length === 3) {
-                const [xStart, xLen, yStart] = range;
-                applyRange(background, xStart, xLen, yStart, 1)
-            } else if (range.length === 2) {
-                const [xStart, yStart] = range;
-                applyRange(background, xStart, 1, yStart, 1)
-            }
-        })
-    })
 }
 
 // 加载精灵对应的皮肤位置 比如 sky 在雪碧图上的位置
@@ -88,32 +55,4 @@ export function loadSpriteSheet(name) {
            }
             return sprites;
         })
-}
-
-/**
-* 请求本地关卡资源
-* 添加backgroundLayer,
-* */
-export function loadLevel(name) {
-    // levelSpec 就是 一个 json对象
-    // levelSpec.spriteSheet 名称
-    return loadJSON(`/assets/levels/${name}.json`).then(levelSpec =>
-        Promise.all([
-            levelSpec,
-            loadSpriteSheet(levelSpec.spriteSheet)
-        ])
-    ).then(([levelsSpec, backgroundSprites]) => {
-        let level = new Level();
-
-        // 创建整个背景图需要tile对象 存放到 matrix的grid中
-        createTiles(level, levelsSpec.background);
-
-        const backgroundLayer = createBackgroundLayer(level, backgroundSprites);
-        level.comp.layers.push(backgroundLayer);
-
-        const spriteLayer = createSpriteLayer(level.entities);  // 绘制entities的函数，传入上下文和camera
-        level.comp.layers.push(spriteLayer);
-
-        return level
-    })
 }

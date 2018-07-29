@@ -1,5 +1,5 @@
 import Timer from './Timer';
-import {loadLevel} from './loaders';
+import {loadLevel} from './loaders/level';
 import {createMario} from "./entities";
 // import {createCollisionLayer, createCameraLayer} from "./layers";
 import {setupKeyboard} from './input'

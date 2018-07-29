@@ -1,70 +1,44 @@
+import TileResolver from './TileResolver'
 /**
 * 创建一个背景buffer对象，给背景buffer 绘制 关卡瓦片
 * 返回一个函数 需要传入上下文 把背景buffer绘制到上下文中
-* */
-export function createBackgroundLayer(level, sprites) {
-    // tiles 是矩阵类
-    const tiles = level.tiles;
-    const resolver = level.tileCollider.tiles;
-    /**
-    *  创建 背景图片 buffer
-    *  固定宽高
-    * */
+*/
+export function createBackgroundLayer(level, tiles, sprites) {
+    const resolver = new TileResolver(tiles);
 
     const buffer = document.createElement('canvas');
     buffer.width = 256 + 16;
-    buffer.height = 360;
+    buffer.height = 240;
 
     const context = buffer.getContext('2d');
 
+    function redraw(startIndex, endIndex)  {
+        context.clearRect(0, 0, buffer.width, buffer.height);
 
-    let startIndex, endIndex;
-
-
-    function renderRaw(drawFrom, drawTo) {
-        // if(drawFrom === startIndex && drawTo === endIndex){
-        //     return;
-        // }
-
-        startIndex = drawFrom;
-        endIndex = drawTo;
-
-        for (let x = startIndex; x < endIndex; ++x){
+        for (let x = startIndex; x <= endIndex; ++x) {
             const col = tiles.grid[x];
-            if(col){
+            if (col) {
                 col.forEach((tile, y) => {
-                    if(sprites.animations.has(tile.name )){
-                        sprites.drawAnim(tile.name, context, x - startIndex, y, level.totalTime)
+                    if (sprites.animations.has(tile.name)) {
+                        sprites.drawAnim(tile.name, context, x - startIndex, y, level.totalTime);
+                    } else {
+                        sprites.drawTile(tile.name, context, x - startIndex, y);
                     }
-                    else {
-                        sprites.drawTile(tile.name, context, x - startIndex, y)
-                    }
-                })
+                });
             }
         }
     }
-    
-
-
-    /**
-    * 遍历背景图片数组，绘制在buffer上
-    * */
-    level.tiles.forEach((tile, x, y) => {
-        sprites.drawTile(tile.name, context, x, y);
-    });
-
 
     return function drawBackgroundLayer(context, camera) {
         const drawWidth = resolver.toIndex(camera.size.x);
         const drawFrom = resolver.toIndex(camera.pos.x);
         const drawTo = drawFrom + drawWidth;
-
-        renderRaw(drawFrom, drawTo);
+        redraw(drawFrom, drawTo);
 
         context.drawImage(buffer,
             -camera.pos.x % 16,
-            -camera.pos.y)
-    }
+            -camera.pos.y);
+    };
 }
 
 /**

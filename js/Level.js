@@ -1,5 +1,4 @@
 import Compositor from "./Compositor";
-import {Matrix} from "./math";
 import TileCollider from "./TileCollider";
 
 /**
@@ -21,19 +20,22 @@ export default class Level {
         this.comp = new Compositor();
         // 实体类
         this.entities = new Set();
-        // 此处代表的是 矩阵类
-        this.tiles = new Matrix();
 
 
         // 检查mario 在 X轴和Y轴 是否运动
-        this.tileCollider = new TileCollider(this.tiles);
+        this.tileCollider = null;
     }
+
+    setCollisionGrid(matrix) {
+        this.tileCollider = new TileCollider(matrix);
+    }
+
     /**
     *  deltaTime 增量时间（每一帧消耗的时间）
     *  遍历entities 执行每个元素的update方法
     *  每个元素的pos x，y 都加上vel * deltaTime
     *  每个元素vel.y += 重力 * 增量时间
-    * */
+    */
     update(deltaTime) {
         this.entities.forEach(entity => {
             // 先执行mario的update方法，update会执行mario的特征库里面元素的update方法
