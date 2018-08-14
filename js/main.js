@@ -1,10 +1,9 @@
-import Timer from './Timer';
-import {loadLevel} from './loaders/level';
-import {createMario} from "./entities";
-// import {createCollisionLayer, createCameraLayer} from "./layers";
-import {setupKeyboard} from './input'
-import Camera from "./Camera";
-import {setupMouseControl} from "./debug";
+import Camera from './Camera.js';
+import Timer from './Timer.js';
+import {loadLevel} from './loaders/level.js';
+import {loadEntities} from './entities.js';
+import {setupKeyboard} from './input.js';
+import {createCollisionLayer} from './layers.js';
 
 const canvas = document.getElementById('screen');
 const context = canvas.getContext('2d');
@@ -17,38 +16,45 @@ const context = canvas.getContext('2d');
  *   3、更新level的Comp中的layer层
  * */
 Promise.all([
-    createMario(),
-    loadLevel('1-1')
-]).then(([mario, level]) => {
+    loadEntities(),
+    loadLevel('1-1'),
+]).then(([entity, level]) => {
 
-    const timer = new Timer(1 / 60);
     const camera = new Camera();
-    level.entities.add(mario);
+    window.camera = camera;
 
-    // 设置位置和偏移量的初始值
+    const mario = entity.mario();
     mario.pos.set(64, 64);
 
-    // 每帧更新时候
-    timer.update = function (deltaTime) {
+    const goomba = entity.goomba();
+    goomba.pos.x = 220;
+    level.entities.add(goomba);
 
+
+    const koopa = entity.koopa();
+    koopa.pos.x = 260;
+    level.entities.add(koopa);
+
+
+    level.entities.add(mario);
+
+    level.comp.layers.push(createCollisionLayer(level));
+
+    const input = setupKeyboard(mario);
+    input.listenTo(window);
+
+    const timer = new Timer(1/60);
+    // 每帧更新时候
+    timer.update = function update(deltaTime) {
         // 更新关卡
         level.update(deltaTime);
-
         //改变camera的坐标
-        if(mario.pos.x > 100){
+        if (mario.pos.x > 100) {
             camera.pos.x = mario.pos.x - 100;
         }
-
         // 更新合成器里面的
         level.comp.draw(context, camera);
-
-    };
+    }
 
     timer.start();
-
-
-    // debug 给canvas添加事件监听
-    setupMouseControl(canvas, mario, camera);
-    setupKeyboard(mario).listenTo(window);
-
 });

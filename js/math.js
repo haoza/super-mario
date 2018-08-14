@@ -1,50 +1,36 @@
-
-/**
- *  @constructor
- *  @grid {number} 格子集合
- *
- *
- */
 export class Matrix {
     constructor() {
         this.grid = [];
     }
 
     forEach(callback) {
-        /*
-         * 遍历背景图片数组，
-         * */
         this.grid.forEach((column, x) => {
-            column.forEach((tile, y) => {
-                callback(tile, x, y)
-            })
+            column.forEach((value, y) => {
+                callback(value, x, y);
+            });
         });
+    }
+
+    get(x, y) {
+        const col = this.grid[x];
+        if (col) {
+            return col[y];
+        }
+        return undefined;
     }
 
     set(x, y, value) {
         if (!this.grid[x]) {
             this.grid[x] = [];
         }
-        this.grid[x][y] = value;
-    }
 
-    get(x, y) {
-        const col = this.grid[x];
-        if (col) {
-            return col[y]
-        }
-        return undefined;
+        this.grid[x][y] = value;
     }
 }
 
-
-/*
-* vector 向量
-*
-* */
-export class vec2 {
+export class Vec2 {
     constructor(x, y) {
-        this.set(x, y)
+        this.set(x, y);
     }
 
     set(x, y) {
