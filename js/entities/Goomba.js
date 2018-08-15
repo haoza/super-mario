@@ -4,7 +4,7 @@ import {loadSpriteSheet} from '../loaders.js';
 
 export function loadGoomba() {
     return loadSpriteSheet('goomba')
-    .then(createGoombaFactory);
+        .then(createGoombaFactory);
 }
 
 function createGoombaFactory(sprite) {
